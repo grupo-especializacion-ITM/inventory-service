@@ -1,4 +1,3 @@
-# src/domain/aggregates/ingredient_aggregate.py
 from dataclasses import dataclass
 from typing import List, Dict, Optional
 from uuid import UUID

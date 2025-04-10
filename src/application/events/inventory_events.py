@@ -1,4 +1,3 @@
-# src/application/events/inventory_events.py
 from dataclasses import dataclass
 from typing import Dict, List, Any, Optional
 from uuid import UUID
