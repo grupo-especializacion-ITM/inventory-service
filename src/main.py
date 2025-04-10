@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.infrastructure.config.settings import get_settings
-from src.infrastructure.adapters.input.api.inventory_router import router as inventory_router
+from infrastructure.adapters.input.api.inventory_api import router as inventory_router
 from src.infrastructure.adapters.input.api.error_handler import setup_error_handlers
 #from src.infrastructure.adapters.output.messaging.kafka_event_publisher import KafkaEventPublisher
 
