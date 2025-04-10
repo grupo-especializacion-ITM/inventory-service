@@ -7,7 +7,7 @@ settings = get_settings()
 
 # Create async engine
 engine = create_async_engine(
-    "postgresql+asyncpg://adrielmachado0111:Afwl6cC7hKUN@ep-aged-band-882777-pooler.us-east-2.aws.neon.tech/inventory_service",
+    settings.DATABASE_URL,
     echo=settings.DB_ECHO,
     future=True
 )

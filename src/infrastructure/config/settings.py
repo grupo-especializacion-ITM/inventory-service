@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     
     # Database settings
-    DATABASE_URL: str = 'postgresql://adrielmachado0111:Afwl6cC7hKUN@ep-aged-band-882777-pooler.us-east-2.aws.neon.tech/inventory_service'
+    DATABASE_URL: str
     DB_ECHO: bool = False
     
     # Kafka settings
