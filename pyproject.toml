@@ -16,6 +16,13 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "psycopg2-binary>=2.9.10",
     "pydantic-settings>=2.8.1",
+    "pytest",
+    "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
 ]
 
 [build-system]
