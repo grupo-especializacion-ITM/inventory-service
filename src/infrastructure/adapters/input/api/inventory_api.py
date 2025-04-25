@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from infrastructure.adapters.input.api.routes.recipe_route import recipe_router
-from infrastructure.adapters.input.api.routes.ingredient_route import ingredient_router
-from infrastructure.adapters.input.api.routes.validation_route import validation_router
+from src.infrastructure.adapters.input.api.routes.recipe_route import recipe_router
+from src.infrastructure.adapters.input.api.routes.ingredient_route import ingredient_router
+from src.infrastructure.adapters.input.api.routes.validation_route import validation_router
 from src.infrastructure.config.settings import get_settings
 
 

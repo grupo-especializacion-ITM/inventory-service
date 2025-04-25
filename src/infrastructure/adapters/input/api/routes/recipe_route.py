@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 from uuid import UUID
 from fastapi import APIRouter, Depends, Query, Path, Body, status
 
-from domain.ports.input.inventory_service_port import InventoryServicePort
+from src.domain.ports.input.inventory_service_port import InventoryServicePort
 from src.infrastructure.adapters.input.api.inventory_controller import InventoryController
 from src.infrastructure.adapters.input.api.schemas import (
     IngredientCreateSchema,
