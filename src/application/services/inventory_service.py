@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from src.domain.ports.input.inventory_service_port import InventoryServicePort
 from src.domain.ports.output.ingredient_repository_port import IngredientRepositoryPort
 from src.domain.ports.output.recipe_repository_port import RecipeRepositoryPort
-#from src.domain.ports.output.event_publisher_port import EventPublisherPort
+from src.domain.ports.output.event_publisher_port import EventPublisherPort
 from src.domain.entities.ingredient import Ingredient
 from src.domain.entities.recipe import Recipe, RecipeIngredient
 from src.domain.aggregates.ingredient_aggregate import IngredientAggregate, RecipeWithIngredientsAggregate
@@ -15,7 +15,8 @@ from src.domain.exceptions.domain_exceptions import (
     InvalidQuantityException,
     InventoryOperationException
 )
-""" from src.application.events.inventory_events import (
+
+from src.application.events.inventory_events import (
     IngredientCreatedEvent,
     IngredientUpdatedEvent,
     IngredientStockChangedEvent,
@@ -23,7 +24,7 @@ from src.domain.exceptions.domain_exceptions import (
     RecipeCreatedEvent,
     RecipeUpdatedEvent,
     InventoryValidationEvent
-) """
+)
 
 
 class InventoryService(InventoryServicePort):
@@ -31,11 +32,11 @@ class InventoryService(InventoryServicePort):
         self,
         ingredient_repository: IngredientRepositoryPort,
         recipe_repository: RecipeRepositoryPort,
-        #event_publisher: EventPublisherPort
+        event_publisher: EventPublisherPort
     ):
         self.ingredient_repository = ingredient_repository
         self.recipe_repository = recipe_repository
-        #self.event_publisher = event_publisher
+        self.event_publisher = event_publisher
     
     async def create_ingredient(
         self,
@@ -67,11 +68,11 @@ class InventoryService(InventoryServicePort):
         saved_ingredient = await self.ingredient_repository.save(ingredient_aggregate.ingredient)
         
         # Publish event
-        #await self.event_publisher.publish_ingredient_created(saved_ingredient)
+        await self.event_publisher.publish_ingredient_created(saved_ingredient)
         
         # Check if below minimum stock and publish alert if needed
-        """ if ingredient_aggregate.is_below_minimum_stock():
-            await self.event_publisher.publish_low_stock_alert(saved_ingredient) """
+        if ingredient_aggregate.is_below_minimum_stock():
+            await self.event_publisher.publish_low_stock_alert(saved_ingredient)
         
         return saved_ingredient
     
@@ -101,15 +102,15 @@ class InventoryService(InventoryServicePort):
         updated_ingredient = await self.ingredient_repository.update(ingredient_aggregate.ingredient)
         
         # Publish stock changed event
-        """ await self.event_publisher.publish_ingredient_stock_changed(
+        await self.event_publisher.publish_ingredient_stock_changed(
             updated_ingredient,
             previous_quantity,
             "update"
-        ) """
+        )
         
         # Check if below minimum stock and publish alert if needed
-        """ if ingredient_aggregate.is_below_minimum_stock():
-            await self.event_publisher.publish_low_stock_alert(updated_ingredient) """
+        if ingredient_aggregate.is_below_minimum_stock():
+            await self.event_publisher.publish_low_stock_alert(updated_ingredient)
         
         return updated_ingredient
     
@@ -146,11 +147,11 @@ class InventoryService(InventoryServicePort):
         updated_ingredient = await self.ingredient_repository.update(ingredient_aggregate.ingredient)
         
         # Publish stock changed event
-        """ await self.event_publisher.publish_ingredient_stock_changed(
+        await self.event_publisher.publish_ingredient_stock_changed(
             updated_ingredient,
             previous_quantity,
             "increase"
-        ) """
+        )
         
         return updated_ingredient
     
@@ -188,15 +189,15 @@ class InventoryService(InventoryServicePort):
             updated_ingredient = await self.ingredient_repository.update(ingredient_aggregate.ingredient)
             
             # Publish stock changed event
-            """ await self.event_publisher.publish_ingredient_stock_changed(
+            await self.event_publisher.publish_ingredient_stock_changed(
                 updated_ingredient,
                 previous_quantity,
                 "decrease"
-            ) """
+            )
             
             # Check if below minimum stock and publish alert if needed
-            """ if ingredient_aggregate.is_below_minimum_stock():
-                await self.event_publisher.publish_low_stock_alert(updated_ingredient) """
+            if ingredient_aggregate.is_below_minimum_stock():
+                await self.event_publisher.publish_low_stock_alert(updated_ingredient)
             
             return updated_ingredient
             
@@ -246,14 +247,14 @@ class InventoryService(InventoryServicePort):
                 result[product_id] = False
         
         # Publish validation event
-        """ await self.event_publisher.publish_event(
+        await self.event_publisher.publish_event(
             event_type="inventory.validation.performed",
             payload=InventoryValidationEvent.create(
-                validation_id=validation_id,
+                validation_id=str(validation_id),
                 items=items,
                 validation_result=result
             ).__dict__
-        ) """
+        )
         
         return result
     
@@ -317,7 +318,7 @@ class InventoryService(InventoryServicePort):
         ]
         
         # Publish event
-        #await self.event_publisher.publish_recipe_created(saved_recipe)
+        await self.event_publisher.publish_recipe_created(saved_recipe)
         
         return saved_recipe
     
@@ -375,7 +376,7 @@ class InventoryService(InventoryServicePort):
         updated_recipe = await self.recipe_repository.update(recipe)
         
         # Publish event
-        #await self.event_publisher.publish_recipe_updated(updated_recipe)
+        await self.event_publisher.publish_recipe_updated(updated_recipe)
         
         return updated_recipe
     

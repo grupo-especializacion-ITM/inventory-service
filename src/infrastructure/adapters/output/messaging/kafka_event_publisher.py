@@ -51,7 +51,7 @@ class KafkaEventPublisher(EventPublisherPort):
         """Publish an ingredient created event"""
         # Create event
         event = IngredientCreatedEvent.create(
-            ingredient_id=ingredient.id,
+            ingredient_id=str(ingredient.id),
             name=ingredient.name,
             quantity=ingredient.quantity.value,
             unit_of_measure=ingredient.unit_of_measure.unit,
@@ -69,7 +69,7 @@ class KafkaEventPublisher(EventPublisherPort):
         """Publish an ingredient updated event"""
         # Create event
         event = IngredientUpdatedEvent.create(
-            ingredient_id=ingredient.id,
+            ingredient_id=str(ingredient.id),
             name=ingredient.name,
             quantity=ingredient.quantity.value,
             unit_of_measure=ingredient.unit_of_measure.unit,
@@ -92,7 +92,7 @@ class KafkaEventPublisher(EventPublisherPort):
         """Publish an ingredient stock changed event"""
         # Create event
         event = IngredientStockChangedEvent.create(
-            ingredient_id=ingredient.id,
+            ingredient_id=str(ingredient.id),
             name=ingredient.name,
             previous_quantity=previous_quantity,
             new_quantity=ingredient.quantity.value,
@@ -111,7 +111,7 @@ class KafkaEventPublisher(EventPublisherPort):
         """Publish a low stock alert event"""
         # Create event
         event = LowStockAlertEvent.create(
-            ingredient_id=ingredient.id,
+            ingredient_id=str(ingredient.id),
             name=ingredient.name,
             current_quantity=ingredient.quantity.value,
             minimum_stock=ingredient.minimum_stock.value,
@@ -140,7 +140,7 @@ class KafkaEventPublisher(EventPublisherPort):
         
         # Create event
         event = RecipeCreatedEvent.create(
-            recipe_id=recipe.id,
+            recipe_id=str(recipe.id),
             name=recipe.name,
             ingredients=ingredients_data
         )
@@ -167,7 +167,7 @@ class KafkaEventPublisher(EventPublisherPort):
         
         # Create event
         event = RecipeUpdatedEvent.create(
-            recipe_id=recipe.id,
+            recipe_id=str(recipe.id),
             name=recipe.name,
             ingredients=ingredients_data
         )

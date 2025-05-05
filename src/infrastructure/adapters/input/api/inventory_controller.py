@@ -19,7 +19,7 @@ from src.application.mappers.ingredient_mapper import IngredientMapper
 from src.application.mappers.recipe_mapper import RecipeMapper
 from src.infrastructure.adapters.output.repositories.ingredient_repository import IngredientRepository
 from src.infrastructure.adapters.output.repositories.recipe_repository import RecipeRepository
-#from src.infrastructure.adapters.output.messaging.kafka_event_publisher import KafkaEventPublisher
+from src.infrastructure.adapters.output.messaging.kafka_event_publisher import KafkaEventPublisher
 from src.infrastructure.db.session import get_db_session
 from src.infrastructure.adapters.input.api.schemas import (
     IngredientCreateSchema,
@@ -43,12 +43,12 @@ class InventoryController:
         """Dependency for getting the inventory service"""
         ingredient_repository = IngredientRepository(session)
         recipe_repository = RecipeRepository(session)
-        #event_publisher = KafkaEventPublisher()
+        event_publisher = KafkaEventPublisher()
         
         return InventoryService(
             ingredient_repository=ingredient_repository,
             recipe_repository=recipe_repository,
-            #event_publisher=event_publisher
+            event_publisher=event_publisher
         )
     
     @staticmethod
