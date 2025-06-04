@@ -1,0 +1,27 @@
+name: CD - Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+    - name: Debug USERNAME
+      run: echo Tag will be ${USERNAME}/inventory-service:latest
+      
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to Docker Hub
+      run: echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin
+
+    - name: Build and Push Order Service
+      run: |
+        docker build -t adrielmachado0111/inventory-service:latest .
+        docker push adrielmachado0111/inventory-service:latest
