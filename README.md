@@ -67,7 +67,7 @@ inventory_service/
 1. Crear un archivo `.env` en la raíz del proyecto con la siguiente configuración:
 
 ```
-DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/inventory_db
+INVENTORY_DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/inventory_db
 DB_ECHO=True
 KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 DEBUG=True
